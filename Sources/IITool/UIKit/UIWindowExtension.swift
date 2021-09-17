@@ -10,9 +10,9 @@ import UIKit
 // MARK: - Properties
 public extension UIWindow {
     /// IITool: return the top ViewController
-    var topViewController: UIViewController? {
+    var topMostViewController: UIViewController? {
         get {
-            var top = self.rootViewController
+            var top = UIWindow.key?.rootViewController
             while true {
                 if let presented = top?.presentedViewController {
                     top = presented
@@ -24,7 +24,19 @@ public extension UIWindow {
                     break
                 }
             }
+            
             return top
+        }
+    }
+    
+    /// IITool: return the key windows
+    static var key: UIWindow? {
+        get {
+            if #available(iOS 13, *) {
+                return UIApplication.shared.windows.first { $0.isKeyWindow }
+            } else {
+                return UIApplication.shared.keyWindow
+            }
         }
     }
 }

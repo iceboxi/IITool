@@ -27,6 +27,13 @@ public extension UIViewController {
 
         return presentingIsNavigationFirst && ( presentingIsModal || presentingIsNavigation || presentingIsTabBar )
     }
+    
+    /// IITool: get Top Most ViewController.
+    var topMostViewController: UIViewController {
+        get {
+            return UIWindow.key?.topMostViewController ?? self
+        }
+    }
 }
 
 // MARK: - Methods
@@ -50,16 +57,14 @@ public extension UIViewController {
         return viewController
     }
     
+    /// IITool: Present ViewController anyway (on top most view controller).
+    ///
+    /// - Parameters:
+    ///   - viewControllerToPresent: ViewController will present.
+    ///   - flag: animated flag.
+    ///   - completion: completion action.
     func presentAnyway(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
-        if !isViewLoaded || (view.window == nil) {
-            guard let window = UIApplication.shared.keyWindow else {
-                return
-            }
-            
-            window.topViewController?.present(viewControllerToPresent, animated: true)
-        } else {
-            present(viewControllerToPresent, animated: true)
-        }
+        topMostViewController.present(viewControllerToPresent, animated: flag, completion: completion)
     }
 }
 
