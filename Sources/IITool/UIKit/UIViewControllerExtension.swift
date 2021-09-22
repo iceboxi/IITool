@@ -64,6 +64,50 @@ public extension UIViewController {
     func presentAnyway(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
         topMostViewController.present(viewControllerToPresent, animated: flag, completion: completion)
     }
+    
+    /// IITool: show standard loading view.
+    ///
+    /// - Parameters:
+    ///   - maskScreen: black background view.
+    func showLoading(_ maskScreen: Bool = false) {
+        if let _ = view.subviews.first(where: { $0.tag == -10001 }) {
+            return
+        }
+
+        view.isUserInteractionEnabled = false
+        let loadingView = UIView(frame: .zero)
+        loadingView.layer.cornerRadius = 10
+        loadingView.tag = -10001
+        loadingView.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.backgroundColor = UIColor(white: 0, alpha: 0.5)
+
+        let indicator = UIActivityIndicatorView(style: .whiteLarge)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        loadingView.addSubview(indicator)
+        indicator.startAnimating()
+
+        let width = maskScreen ? view.bounds.width : 60
+        let height = maskScreen ? view.bounds.height : 60
+        
+        view.addSubview(loadingView)
+        NSLayoutConstraint.activate([
+            loadingView.widthAnchor.constraint(equalToConstant: width),
+            loadingView.heightAnchor.constraint(equalToConstant: height),
+            loadingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loadingView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            indicator.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: loadingView.centerYAnchor),
+        ])
+    }
+    
+    /// IITool: hide standard loading view.
+    final func hideLoading() {
+        view.isUserInteractionEnabled = true
+
+        if let loadingView = view.subviews.first(where: { $0.tag == -10001 }) {
+            loadingView.removeFromSuperview()
+        }
+    }
 }
 
 #endif
