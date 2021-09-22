@@ -30,9 +30,7 @@ public extension UIViewController {
     
     /// IITool: get Top Most ViewController.
     var topMostViewController: UIViewController {
-        get {
-            return UIWindow.key?.topMostViewController ?? self
-        }
+        return UIWindow.key?.topMostViewController ?? self
     }
 }
 

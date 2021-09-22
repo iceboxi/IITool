@@ -11,32 +11,28 @@ import UIKit
 public extension UIWindow {
     /// IITool: return the top ViewController
     var topMostViewController: UIViewController? {
-        get {
-            var top = UIWindow.key?.rootViewController
-            while true {
-                if let presented = top?.presentedViewController {
-                    top = presented
-                } else if let nav = top as? UINavigationController {
-                    top = nav.visibleViewController
-                } else if let tab = top as? UITabBarController {
-                    top = tab.selectedViewController
-                } else {
-                    break
-                }
+        var top = UIWindow.key?.rootViewController
+        while true {
+            if let presented = top?.presentedViewController {
+                top = presented
+            } else if let nav = top as? UINavigationController {
+                top = nav.visibleViewController
+            } else if let tab = top as? UITabBarController {
+                top = tab.selectedViewController
+            } else {
+                break
             }
-            
-            return top
         }
+        
+        return top
     }
     
     /// IITool: return the key windows
     static var key: UIWindow? {
-        get {
-            if #available(iOS 13, *) {
-                return UIApplication.shared.windows.first { $0.isKeyWindow }
-            } else {
-                return UIApplication.shared.keyWindow
-            }
+        if #available(iOS 13, *) {
+            return UIApplication.shared.windows.first { $0.isKeyWindow }
+        } else {
+            return UIApplication.shared.keyWindow
         }
     }
 }
