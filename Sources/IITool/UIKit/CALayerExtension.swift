@@ -10,6 +10,14 @@ import UIKit
 
 // MARK: - Methods
 public extension CALayer {
+    /// IITool: set Sketch/Zeplin shadow
+    ///
+    /// - Parameters:
+    ///   - color: shadow color
+    ///   - alpha: shadow alpha/opacity
+    ///   - x, y: shadow offset
+    ///   - blur: shadow radius/blur
+    ///   - spread: shadow inset
     func setSketchShadow(color: UIColor? = .black,
                          alpha: CGFloat = 0.5,
                          x: CGFloat = 0, y: CGFloat = 5,
