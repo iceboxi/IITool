@@ -69,15 +69,15 @@ public extension UIViewController {
     ///
     /// - Parameters:
     ///   - maskScreen: black background view.
-    func showLoading(_ maskScreen: Bool = false) {
-        if let _ = view.subviews.first(where: { $0.tag == -10001 }) {
+    final func showLoading(_ maskScreen: Bool = false) {
+        if let _ = view.subviews.first(where: { $0.tag == -1009998 }) {
             return
         }
 
         view.isUserInteractionEnabled = false
         let loadingView = UIView(frame: .zero)
         loadingView.layer.cornerRadius = 10
-        loadingView.tag = -10001
+        loadingView.tag = -1009998
         loadingView.translatesAutoresizingMaskIntoConstraints = false
         loadingView.backgroundColor = UIColor(white: 0, alpha: 0.5)
 
@@ -104,7 +104,7 @@ public extension UIViewController {
     final func hideLoading() {
         view.isUserInteractionEnabled = true
 
-        if let loadingView = view.subviews.first(where: { $0.tag == -10001 }) {
+        if let loadingView = view.subviews.first(where: { $0.tag == -1009998 }) {
             loadingView.removeFromSuperview()
         }
     }
